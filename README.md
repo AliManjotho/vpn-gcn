@@ -45,13 +45,13 @@ A. Run the script pcapng_to_pcap.py
 
 A. Download splitcap utility
    https://www.netresec.com/?page=SplitCap
-
 B. Place SplitCap.exe file in .\code-gcn\PCAP processing\
 C. Right-Clik and edit SplitSessions.bat file.
 D. Set the dataset_path and splitcap_path accordingly and save.
 E. Double-click .\code-gcn\PCAP processing\SplitSessions.bat
 F. This will split pcap files in to sessions.
 
-NOTE: During Split, if the SplitCap.exe crashes then delete the following files from dataset:
-ISCX/VPN/vpn_hangouts_audio1.pcap
-ISCX/VPN/vpn_hangouts_audio2.pcap
+> [!NOTE]
+> During Split, if the SplitCap.exe crashes then delete the following files from dataset:
+- ISCX/VPN/vpn_hangouts_audio1.pcap
+- ISCX/VPN/vpn_hangouts_audio2.pcap
