@@ -24,7 +24,7 @@ VPN-PCAPS-01.zip
 VPN-PCAPS-02.zip
 
 C. Finally the dataset structure should look like:
-
+```
 -dataset
  - ISCX
    - NonVPN
@@ -37,7 +37,7 @@ C. Finally the dataset structure should look like:
     - vpn_aim_chat1b.pcap
 	...
     - vpn_youtube_A.pcap
-
+```
 ## 3. Convert pcapng files to pcap
 A. Run the script pcapng_to_pcap.py
 
