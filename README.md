@@ -15,13 +15,13 @@ A. Download following files:
 ## 2. Prepare dataset (ISCX-VPN-NonVPN-2016)
 
 A. Extract the following files in folder dataset/ISCX/NonVPN
-NonVPN-PCAPs-01.zip
-NonVPN-PCAPs-02.zip
-NonVPN-PCAPs-03.zip
+- NonVPN-PCAPs-01.zip
+- NonVPN-PCAPs-02.zip
+- NonVPN-PCAPs-03.zip
 
 B. Extract the following files in folder dataset/ISCX/VPN
-VPN-PCAPS-01.zip
-VPN-PCAPS-02.zip
+- VPN-PCAPS-01.zip
+- VPN-PCAPS-02.zip
 
 C. Finally the dataset structure should look like:
 ```
