@@ -1,5 +1,5 @@
 # vpn-gcn
-## Download the dataset (ISCX-VPN-NonVPN-2016)
+## 1. Download the dataset (ISCX-VPN-NonVPN-2016)
 
 http://205.174.165.80/CICDataset/ISCX-VPN-NonVPN-2016/Dataset/PCAPs/
 
@@ -10,7 +10,7 @@ Download following files:
 4. VPN-PCAPS-01.zip
 5. VPN-PCAPS-02.zip
 
-## Prepare dataset (ISCX-VPN-NonVPN-2016)
+## 2. Prepare dataset (ISCX-VPN-NonVPN-2016)
 
 Extract the following files in folder dataset/ISCX/NonVPN
 NonVPN-PCAPs-01.zip
@@ -23,10 +23,10 @@ VPN-PCAPS-02.zip
 
 Finally the dataset structure should look like:
 ===============================================
--dataset
---ISCX
----NonVPN
-----aim_chat_3a.pcap
+#dataset
+##ISCX
+###NonVPN
+####aim_chat_3a.pcap
 ----aim_chat_3b.pcap
 	...
 ----youtubeHTML5_1.pcap
