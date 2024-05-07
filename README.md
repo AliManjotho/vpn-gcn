@@ -53,5 +53,5 @@ F. This will split pcap files in to sessions.
 
 > [!NOTE]
 > During Split, if the SplitCap.exe crashes then delete the following files from dataset:
-- ISCX/VPN/vpn_hangouts_audio1.pcap
-- ISCX/VPN/vpn_hangouts_audio2.pcap
+> - ISCX/VPN/vpn_hangouts_audio1.pcap
+> - ISCX/VPN/vpn_hangouts_audio2.pcap
