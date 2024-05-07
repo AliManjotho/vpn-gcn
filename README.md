@@ -23,8 +23,8 @@ VPN-PCAPS-02.zip
 
 Finally the dataset structure should look like:
 ===============================================
-#dataset
-##ISCX
+.dataset
+..ISCX
 ###NonVPN
 ####aim_chat_3a.pcap
 ----aim_chat_3b.pcap
@@ -37,12 +37,12 @@ Finally the dataset structure should look like:
 ----vpn_youtube_A.pcap
 ===============================================
 
-## Convert pcapng files to pcap
+## 3. Convert pcapng files to pcap
 Run the script pcapng_to_pcap.py
 
 
 
-## Split Sessions
+## 4. Split Sessions
 
 Download splitcap utility
 	https://www.netresec.com/?page=SplitCap
