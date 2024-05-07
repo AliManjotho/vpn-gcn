@@ -25,18 +25,18 @@ VPN-PCAPS-02.zip
 
 C. Finally the dataset structure should look like:
 ```
-+dataset
-++ISCX
-+++NonVPN
-++++aim_chat_3a.pcap
-++++aim_chat_3b.pcap
+-dataset
+ -ISCX
+  -NonVPN
+   -aim_chat_3a.pcap
+    -aim_chat_3b.pcap
 	...
-++++youtubeHTML5_1.pcap
-+++VPN
-++++vpn_aim_chat1a.pcap
-++++vpn_aim_chat1b.pcap
+    -youtubeHTML5_1.pcap
+  -VPN
+   -vpn_aim_chat1a.pcap
+   -vpn_aim_chat1b.pcap
 	...
-++++vpn_youtube_A.pcap
+   -vpn_youtube_A.pcap
 ```
 ## 3. Convert pcapng files to pcap
 A. Run the script pcapng_to_pcap.py
@@ -46,11 +46,11 @@ A. Run the script pcapng_to_pcap.py
 A. Download splitcap utility
    https://www.netresec.com/?page=SplitCap
 
-B. Place SplitCap.exe file in {.\code-gcn\PCAP processing\}
-C. Right-Clik and edit SplitSessions.bat file
-D. Set the dataset_path and splitcap_path accordingly and save
+B. Place SplitCap.exe file in .\code-gcn\PCAP processing\
+C. Right-Clik and edit SplitSessions.bat file.
+D. Set the dataset_path and splitcap_path accordingly and save.
 E. Double-click .\code-gcn\PCAP processing\SplitSessions.bat
-F. This will split pcap files in to sessions
+F. This will split pcap files in to sessions.
 
 NOTE: During Split, if the SplitCap.exe crashes then delete the following files from dataset:
 ISCX/VPN/vpn_hangouts_audio1.pcap
