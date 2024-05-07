@@ -14,16 +14,16 @@ A. Download following files:
 
 ## 2. Prepare dataset (ISCX-VPN-NonVPN-2016)
 
-A. Extract the following files in folder dataset/ISCX/NonVPN
+* Extract the following files in folder dataset/ISCX/NonVPN
 - NonVPN-PCAPs-01.zip
 - NonVPN-PCAPs-02.zip
 - NonVPN-PCAPs-03.zip
 
-B. Extract the following files in folder dataset/ISCX/VPN
+* Extract the following files in folder dataset/ISCX/VPN
 - VPN-PCAPS-01.zip
 - VPN-PCAPS-02.zip
 
-C. Finally the dataset structure should look like:
+* Finally the dataset structure should look like:
 ```
 -dataset
  - ISCX
@@ -39,17 +39,17 @@ C. Finally the dataset structure should look like:
     - vpn_youtube_A.pcap
 ```
 ## 3. Convert pcapng files to pcap
-A. Run the script pcapng_to_pcap.py
+* Run the script pcapng_to_pcap.py
 
 ## 4. Split Sessions
 
-A. Download splitcap utility
+* Download splitcap utility
    https://www.netresec.com/?page=SplitCap
-B. Place SplitCap.exe file in .\code-gcn\PCAP processing\
-C. Right-Clik and edit SplitSessions.bat file.
-D. Set the dataset_path and splitcap_path accordingly and save.
-E. Double-click .\code-gcn\PCAP processing\SplitSessions.bat
-F. This will split pcap files in to sessions.
+* Place SplitCap.exe file in .\code-gcn\PCAP processing\
+* Right-Clik and edit SplitSessions.bat file.
+* Set the dataset_path and splitcap_path accordingly and save.
+* Double-click .\code-gcn\PCAP processing\SplitSessions.bat
+* This will split pcap files in to sessions.
 
 > [!NOTE]
 > During Split, if the SplitCap.exe crashes then delete the following files from dataset:
