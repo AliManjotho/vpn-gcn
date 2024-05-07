@@ -3,7 +3,7 @@
 
 http://205.174.165.80/CICDataset/ISCX-VPN-NonVPN-2016/Dataset/PCAPs/
 
-A. Download following files:
+* Download following files:
 ```
 1. NonVPN-PCAPs-01.zip
 2. NonVPN-PCAPs-02.zip
@@ -15,13 +15,16 @@ A. Download following files:
 ## 2. Prepare dataset (ISCX-VPN-NonVPN-2016)
 
 * Extract the following files in folder dataset/ISCX/NonVPN
-- NonVPN-PCAPs-01.zip
-- NonVPN-PCAPs-02.zip
-- NonVPN-PCAPs-03.zip
-
+```
+NonVPN-PCAPs-01.zip
+NonVPN-PCAPs-02.zip
+NonVPN-PCAPs-03.zip
+```
 * Extract the following files in folder dataset/ISCX/VPN
-- VPN-PCAPS-01.zip
-- VPN-PCAPS-02.zip
+```
+VPN-PCAPS-01.zip
+VPN-PCAPS-02.zip
+```
 
 * Finally the dataset structure should look like:
 ```
