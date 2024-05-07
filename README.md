@@ -4,11 +4,13 @@
 http://205.174.165.80/CICDataset/ISCX-VPN-NonVPN-2016/Dataset/PCAPs/
 
 A. Download following files:
+'''
 1. NonVPN-PCAPs-01.zip
 2. NonVPN-PCAPs-02.zip
 3. NonVPN-PCAPs-03.zip
 4. VPN-PCAPS-01.zip
 5. VPN-PCAPS-02.zip
+'''
 
 ## 2. Prepare dataset (ISCX-VPN-NonVPN-2016)
 
@@ -22,7 +24,7 @@ VPN-PCAPS-01.zip
 VPN-PCAPS-02.zip
 
 C. Finally the dataset structure should look like:
-
+'''
 +dataset
 ++ISCX
 +++NonVPN
@@ -35,11 +37,9 @@ C. Finally the dataset structure should look like:
 ++++vpn_aim_chat1b.pcap
 	...
 ++++vpn_youtube_A.pcap
-
+'''
 ## 3. Convert pcapng files to pcap
 A. Run the script pcapng_to_pcap.py
-
-
 
 ## 4. Split Sessions
 
