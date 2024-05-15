@@ -69,3 +69,15 @@ VPN-PCAPS-02.zip
 > During Split, if the SplitCap.exe crashes then delete the following files from dataset:
 > - ISCX/VPN/vpn_hangouts_audio1.pcap
 > - ISCX/VPN/vpn_hangouts_audio2.pcap
+
+## 7. Remove Ethernet headers
+* Run the script ethernet_remove.py
+
+## 8. Mask IP Addresses
+* Run the script mask_ip.py
+
+## 9. Pad UDP Packets
+* Run the udp_pad.py
+
+## 10. Convert PCAP to CSV files
+* Run the pcap_to_csv.py
