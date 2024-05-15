@@ -1,74 +1,54 @@
 #This code removes the ethernet header of PCAP files
 from scapy.all import *
-from scapy.utils import PcapWriter
-from scapy.layers.l2 import Ether
+import glob
+import numpy as np
+import pandas as pd
+from scapy.compat import raw
 from pathlib import Path
 from tqdm import tqdm
+import concurrent.futures
+import os
 
 
 
+def remove_ethernet(files_batch):
 
-# def remove_ethernet(thread_index, file):
+    global pbar
 
-#     print('Thread {} started!'.format(thread_index))
+    for file in files_batch:
 
-#     packet_list = rdpcap(file.__str__())
-#     new = PcapWriter(file.__str__())
+        packet_list = rdpcap(file.__str__())
+        new = PcapWriter(file.__str__())
 
-#     for packet in packet_list:
+        for packet in packet_list:
 
-#         if Ether in packet:
-#             payload = packet[Ether].payload
-#             new.write(payload)
-#         else:
-#             new.write(packet)
+            if Ether in packet:
+                payload = packet[Ether].payload
+                new.write(payload)
+            else:
+                new.write(packet)
 
-#     new.close()
-#     print(file.name + ' done!!!!!')
-
-
-
-# def main():
-
-#     path = "../../dataset/ISCX"
-#     files = list(Path(path).rglob('*.pcap*'))
-
-#     thread_index = 1
-#     for file in files:
-#         thread = Thread(target=remove_ethernet, args=(thread_index, file))
-#         thread.start()
-#         thread_index = thread_index + 1
-
-#     thread_index = 1
-#     for file in tqdm(files):
-#         remove_ethernet(thread_index, file)
-#         thread_index = thread_index + 1
+        new.close()
+        pbar.update(1)
 
 
 
-def remove_ethernet(file):
-    packet_list = rdpcap(file.__str__())
-    new = PcapWriter(file.__str__())
-
-    for packet in packet_list:
-
-        if Ether in packet:
-            payload = packet[Ether].payload
-            new.write(payload)
-        else:
-            new.write(packet)
-
-    new.close()
-
-    
+def get_file_batches(files, num_threads):
+    items_per_batch = math.ceil(len(files)/num_threads)
+    batches = [files[i:i + items_per_batch] for i in range(0, len(files), items_per_batch)]  
+    return batches 
 
 
 if __name__=='__main__':
 
+    num_threads = 100
     path = "../../dataset/ISCX"
-    files = list(Path(path).rglob('*.pcap*'))
-    
-    for file in tqdm(files):
-        remove_ethernet(file)
+    files = list(Path(path).rglob('*.pcap'))
 
-    print('ALL FILES DONE!!!!')
+    pbar = tqdm(total=len(files), position=0, desc="Files Done : ")
+    files_batches = get_file_batches(files, num_threads)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
+        executor.map(remove_ethernet, files_batches)
+
+    print('ALL DONE!!!!!')

@@ -10,6 +10,7 @@ from scapy.compat import raw
 from pathlib import Path
 from tqdm import tqdm
 import concurrent.futures
+import os
 
 
 
@@ -29,23 +30,26 @@ def pcap_to_csv(files_batch):
         # print('Files Opened = {}'.format(files_opened))
         # print('Files Closed = {}'.format(files_closed))
 
+        if not Path(file.__str__()[:-4] + 'csv').is_file():
+            print(file.__str__())
 
-        z = []
-        max = 1500
-        packet_list = rdpcap(file.__str__())
-        new = file.__str__()
+            z = []
+            max = 1500
+            packet_list = rdpcap(file.__str__())
+            new = file.__str__()
+            
 
-        for packet in packet_list:
-            t = np.frombuffer(raw(packet), dtype=np.uint8)[0: max] / 255
-            if len(t) <= max:
-                pad_width = max - len(t)
-                t = np.pad(t, pad_width=(0, pad_width), constant_values=0)
-                z.append(t)
+            for packet in packet_list:
+                t = np.frombuffer(raw(packet), dtype=np.uint8)[0: max] / 255
+                if len(t) <= max:
+                    pad_width = max - len(t)
+                    t = np.pad(t, pad_width=(0, pad_width), constant_values=0)
+                    z.append(t)
 
 
-        df = pd.DataFrame(z)
-        df.to_csv(new[:-4] + 'csv', index=False, header=False)
-        z.clear()
+            df = pd.DataFrame(z)
+            df.to_csv(new[:-4] + 'csv', index=False, header=False)
+            z.clear()
 
         files_closed = files_closed + 1
         pbar.update(1)
@@ -68,7 +72,7 @@ if __name__=='__main__':
     
 
     num_threads = 100
-    path = "../../dataset/ISCX"
+    path = "../../dataset/ISCX-Remaining"
     files = list(Path(path).rglob('*.pcap'))
 
 
