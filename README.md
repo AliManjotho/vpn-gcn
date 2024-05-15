@@ -1,4 +1,14 @@
 # vpn-gcn
+
+## 0. Download and install Wireshark
+## 1. Set Wireshark to environment variable
+In start menu search environment
+Edit the system environment variables > Environment Variables
+In user variable double-click Path
+Click New
+Paste the Wireshark installation path: (C:\Program Files\Wireshark)
+Click Ok > OK
+
 ## 1. Download the dataset (ISCX-VPN-NonVPN-2016)
 
 http://205.174.165.80/CICDataset/ISCX-VPN-NonVPN-2016/Dataset/PCAPs/
