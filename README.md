@@ -58,15 +58,3 @@ VPN-PCAPS-02.zip
 > During Split, if the SplitCap.exe crashes then delete the following files from dataset:
 > - ISCX/VPN/vpn_hangouts_audio1.pcap
 > - ISCX/VPN/vpn_hangouts_audio2.pcap
->
-* First run the SplitSessions.bat with:
-```
-%cmd1%
-%cmd2%
-```
-* Then edit the SplitSessions.bat file using:
-```
-%cmd3%
-%cmd4%
-```
-* Save and run the file SplitSessions.bat again.
