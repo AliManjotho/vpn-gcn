@@ -1,6 +1,7 @@
 # vpn-gcn
 
 ## 1. Download and install Wireshark
+* While installing wireshark, CHECK the following option: Install Npcap in WinPcap API-compatible mode
 ## 2. Set Wireshark to environment variable
 * In start menu search environment
 * Edit the system environment variables > Environment Variables
