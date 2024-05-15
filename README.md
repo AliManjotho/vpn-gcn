@@ -1,7 +1,7 @@
 # vpn-gcn
 
-## 0. Download and install Wireshark
-## 1. Set Wireshark to environment variable
+## 1. Download and install Wireshark
+## 2. Set Wireshark to environment variable
 * In start menu search environment
 * Edit the system environment variables > Environment Variables
 * In user variable double-click Path
@@ -9,7 +9,7 @@
 * Paste the Wireshark installation path: (C:\Program Files\Wireshark)
 * Click Ok > OK
 
-## 1. Download the dataset (ISCX-VPN-NonVPN-2016)
+## 3. Download the dataset (ISCX-VPN-NonVPN-2016)
 
 http://205.174.165.80/CICDataset/ISCX-VPN-NonVPN-2016/Dataset/PCAPs/
 
@@ -22,7 +22,7 @@ http://205.174.165.80/CICDataset/ISCX-VPN-NonVPN-2016/Dataset/PCAPs/
 5. VPN-PCAPS-02.zip
 ```
 
-## 2. Prepare dataset (ISCX-VPN-NonVPN-2016)
+## 4. Prepare dataset (ISCX-VPN-NonVPN-2016)
 
 * Extract the following files in folder dataset/ISCX/NonVPN
 ```
@@ -51,10 +51,10 @@ VPN-PCAPS-02.zip
 	...
     - vpn_youtube_A.pcap
 ```
-## 3. Convert pcapng files to pcap
+## 5. Convert pcapng files to pcap
 * Run the script pcapng_to_pcap.py
 
-## 4. Split Sessions
+## 6. Split Sessions
 
 * Download splitcap utility
    https://www.netresec.com/?page=SplitCap
