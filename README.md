@@ -10,7 +10,8 @@
 * Paste the Wireshark installation path: (C:\Program Files\Wireshark)
 * Click Ok > OK
 
-## 3. Download the dataset (ISCX-VPN-NonVPN-2016)
+## 3. Download the datasets
+### 3A. (ISCX-VPN-NonVPN-2016)
 
 http://205.174.165.80/CICDataset/ISCX-VPN-NonVPN-2016/Dataset/PCAPs/
 
@@ -22,16 +23,23 @@ http://205.174.165.80/CICDataset/ISCX-VPN-NonVPN-2016/Dataset/PCAPs/
 4. VPN-PCAPS-01.zip
 5. VPN-PCAPS-02.zip
 ```
+### 3B. (VNAT-VPN)
+https://archive.ll.mit.edu/datasets/vnat/VNAT_release_1.zip
+* Download following files:
+```
+1. VNAT_release_1.zip
+```
 
-## 4. Prepare dataset (ISCX-VPN-NonVPN-2016)
+## 4. Prepare the datasets
+### 4A. (ISCX-VPN-NonVPN-2016)
 
-* Extract the following files in folder dataset/ISCX/NonVPN
+* Extract the following files in folder datasets/ISCX/NonVPN
 ```
 NonVPN-PCAPs-01.zip
 NonVPN-PCAPs-02.zip
 NonVPN-PCAPs-03.zip
 ```
-* Extract the following files in folder dataset/ISCX/VPN
+* Extract the following files in folder datasets/ISCX/VPN
 ```
 VPN-PCAPS-01.zip
 VPN-PCAPS-02.zip
@@ -39,7 +47,7 @@ VPN-PCAPS-02.zip
 
 * Finally the dataset structure should look like:
 ```
--dataset
+-datasets
  - ISCX
    - NonVPN
      - aim_chat_3a.pcap
@@ -52,32 +60,27 @@ VPN-PCAPS-02.zip
 	...
     - vpn_youtube_A.pcap
 ```
-## 5. Convert pcapng files to pcap
-* Run the script pcapng_to_pcap.py
+### 4B. (VNAT-VPN)
+* Extract the following files in folder datasets/VNAT-VPN
+```
+VNAT_release_1.zip
+```
+## 5. Convert pcapng files to pcap and split sessions
+* Run the script split_sessions.py
 
-## 6. Split Sessions
-
+## 6. Process packets
 * Download splitcap utility
    https://www.netresec.com/?page=SplitCap
 * Place SplitCap.exe file in .\code-gcn\PCAP processing\
-* Right-Clik and edit SplitSessions.bat file.
-* Set the dataset_path and splitcap_path accordingly and save.
-* Double-click .\code-gcn\PCAP processing\SplitSessions.bat
-* This will split pcap files in to sessions.
-
-> [!NOTE]
-> During Split, if the SplitCap.exe crashes then delete the following files from dataset:
-> - ISCX/VPN/vpn_hangouts_audio1.pcap
-> - ISCX/VPN/vpn_hangouts_audio2.pcap
-
-## 7. Remove Ethernet headers
-* Run the script ethernet_remove.py
-
-## 8. Mask IP Addresses
-* Run the script mask_ip.py
-
-## 9. Pad UDP Packets
-* Run the udp_pad.py
-
-## 10. Convert PCAP to CSV files
-* Run the pcap_to_csv.py
+* Run the script process_data.py
+* This script will perform following tasks:
+```
+Read each sessions pcap file and extract first 10 packets.
+For each packet, it
+  Removes the Ethernet header.
+  Masks source and destination IPs.
+  Pads the UDP packets with zeros.
+  Convert each packet to byte format (0-255 values), if any packet is less than 1500 it pads with zeros.
+  Normalize each byte value into the range of (0.0 - 1.0).
+  Generates CSV file with each row representing a packet.
+```
