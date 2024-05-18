@@ -71,7 +71,7 @@ VNAT_release_1.zip
 ## 6. Process packets
 * Download splitcap utility
    https://www.netresec.com/?page=SplitCap
-* Place SplitCap.exe file in .\code-gcn\PCAP processing\
+* Place SplitCap.exe file in .\vpn-gcn\PCAP processing\
 * Run the script process_data.py
 * This script will perform following tasks:
 ```
