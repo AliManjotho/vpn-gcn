@@ -1,15 +1,7 @@
 #This code removes the ethernet header of PCAP files
 from scapy.all import *
-import glob
-import numpy as np
-import pandas as pd
 from scapy.compat import raw
-from scapy.layers.inet import IP, UDP
-from scapy.layers.inet6 import IPv6
 from pathlib import Path
-from tqdm import tqdm
-import concurrent.futures
-from scapy.layers.l2 import Ether
 import os
 
 def pcapng_to_pcap(dataset_path):
@@ -29,7 +21,7 @@ def pcapng_to_pcap(dataset_path):
             os.system(command)
             os.remove(old_file)
             count = count + 1
-            print("File converted : ", new_file)
+            print("File converted : ", old_file)
 
     print("No. of PCAPNG files converted to PCAP  : ", count)
     print('================================================================================')
@@ -37,7 +29,7 @@ def pcapng_to_pcap(dataset_path):
     print('')
 
 
-def split_sessions(dataset_path, splitcap_path):
+def split_sessions_iscx(dataset_path, splitcap_path):
     print("")
     print('STEP 02: STARTED (Splitting PCAP files into sessions)')
     print('================================================================================')
@@ -72,12 +64,30 @@ def split_sessions(dataset_path, splitcap_path):
     os.system(cmd4)
     os.system(cmd5)
     os.system(cmd6)
-    # print(cmd1)
-    # print(cmd2)
-    # print(cmd3)
-    # print(cmd4)
-    # print(cmd5)
-    # print(cmd6)
+
+    print('================================================================================')
+    print('STEP 02: COMPLETED')
+    print('')
+
+
+def split_sessions_vnat(dataset_path, splitcap_path):
+    print("")
+    print('STEP 02: STARTED (Splitting PCAP files into sessions)')
+    print('================================================================================')
+
+    splitcap_path = "\"" + splitcap_path + "\""
+
+    split_dir = dataset_path + r'\Splitted'
+
+    cmd1 = splitcap_path + " -r " +  dataset_path + " -o " + split_dir + " -recursive -s session"    
+    cmd2 = "del /Q " + dataset_path + "\\*.pcap"
+    cmd3 = "move /Y " + split_dir + "\\*.pcap " + dataset_path
+    cmd4 = "rmdir /s /Q " + split_dir
+
+    os.system(cmd1)
+    os.system(cmd2)
+    os.system(cmd3)
+    os.system(cmd4)
 
     print('================================================================================')
     print('STEP 02: COMPLETED')
@@ -87,11 +97,16 @@ def split_sessions(dataset_path, splitcap_path):
 
 
 if __name__=='__main__':
-
-    dataset_path = r'D:\SH\TrafficClassification\vpn-gcn\dataset\ISCX'
     splitcap_path= r'D:\SH\TrafficClassification\vpn-gcn\PCAP-processing\SplitCap.exe'
     
-    pcapng_to_pcap(dataset_path)
-    split_sessions(dataset_path, splitcap_path)
+    # Split sessions for ISCX dataset
+    iscx_dataset_path = r'D:\SH\TrafficClassification\vpn-gcn\datasets\ISCX'
+    pcapng_to_pcap(iscx_dataset_path)
+    split_sessions_iscx(iscx_dataset_path, splitcap_path)
+
+    # Split sessions for VNAT-VPN dataset
+    # vnat_dataset_path = r'D:\SH\TrafficClassification\vpn-gcn\datasets\VNAT-VPN'
+    # pcapng_to_pcap(vnat_dataset_path)
+    # split_sessions_vnat(vnat_dataset_path, splitcap_path)
 
     print('ALL DONE!!!!!')
