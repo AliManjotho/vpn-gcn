@@ -13,9 +13,10 @@ from torch_geometric.nn import global_mean_pool as gap, global_max_pool as gmp
 
 
 class GCN(torch.nn.Module):
-    def __init__(self, dataset):
+    def __init__(self, num_classes, num_features):
         super(GCN, self).__init__()
-        self.conv1 = GraphConv(dataset.num_features, 128)
+        self.num_classes = num_classes
+        self.conv1 = GraphConv(num_features, 128)
         self.pool1 = TopKPooling(128, ratio=0.5)
         self.bn1 = BatchNorm1d(128)
         
@@ -37,7 +38,7 @@ class GCN(torch.nn.Module):
         
         self.lin1 = torch.nn.Linear(256, 128)
         self.lin2 = torch.nn.Linear(128, 64 )
-        self.lin3 = torch.nn.Linear(64, dataset.num_classes)
+        self.lin3 = torch.nn.Linear(64, self.num_classes)
         
     def forward(self, data):
         x, edge_index, batch = data.x, data.edge_index, data.batch

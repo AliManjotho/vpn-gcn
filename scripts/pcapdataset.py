@@ -46,7 +46,7 @@ class PCAPDataset(InMemoryDataset):
 
                 edge_index = torch.tensor(np.array(edge_indices), dtype=torch.long)
                 x = torch.tensor(features, dtype=torch.float)
-                y = torch.tensor(class_vector, dtype=torch.float)
+                y = torch.tensor(np.array([class_vector], dtype=np.float32), dtype=torch.float)
                 graph = Data(x=x, edge_index=edge_index, y=y)
 
                 data_list.append(graph)

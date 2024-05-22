@@ -79,3 +79,9 @@ For each packet, it
   Normalize each byte value into the range of (0.0 - 1.0).
   Generates CSV file with each row representing a packet.
 ```
+
+## 7. Generate graphs
+* Run the script generate_graphs.py
+
+## 8. Train the model
+* Run the script train.py
