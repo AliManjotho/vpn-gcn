@@ -1,12 +1,7 @@
 import torch
-import os
-import os.path as osp
-import pandas as pd
 from torch_geometric.data import InMemoryDataset, Dataset, Data
-from torch_geometric.utils.convert import to_networkx
-import networkx as nx
+
 from tqdm import tqdm
-import matplotlib.pyplot as plt
 import torch_geometric.transforms as T
 from pathlib import Path
 import json
@@ -17,18 +12,18 @@ from utils import *
 class PCAPDataset(InMemoryDataset):
     def __init__(self, root, transform=None, pre_transform=None, pre_filter=None):
         super(PCAPDataset, self).__init__(root, transform, pre_transform, pre_filter)
+        self.data, self.slices = torch.load(self.processed_paths[0])
 
 
     @property
     def raw_file_names(self):
         raw_files = list(Path(self.root + '\\raw').rglob('*.json'))
-        return [item.name for item in raw_files]
+        raw_files = [item.name for item in raw_files]
+        return raw_files
 
     @property
     def processed_file_names(self):
-        raw_files = list(Path(self.root + '\\raw').rglob('*.json'))
-        processed_files = ['data_' + str(i) + '.pt' for i in range(1,len(raw_files)+1)]    
-        return processed_files
+        return 'data.pt'
     
     def download(self):
         pass
@@ -37,7 +32,7 @@ class PCAPDataset(InMemoryDataset):
 
         pbar = tqdm(total=len(self.raw_paths), desc='Files Done: ')
 
-        graph_list = []
+        data_list = []
         for file_number, raw_file in enumerate(self.raw_paths):
 
             with open(raw_file, 'r') as file_handle:
@@ -49,38 +44,21 @@ class PCAPDataset(InMemoryDataset):
                 class_label = json_data["class"]
                 class_vector = json_data["class_vector"]
 
-                edge_index = torch.from_numpy(np.array(edge_indices))
-                x = torch.from_numpy(np.array(features))
-                y = torch.from_numpy(np.array(class_vector))
-                graph = Data(x=x, edge_index=edge_index.T, y=y)
+                edge_index = torch.tensor(np.array(edge_indices), dtype=torch.long)
+                x = torch.tensor(features, dtype=torch.float)
+                y = torch.tensor(class_vector, dtype=torch.float)
+                graph = Data(x=x, edge_index=edge_index, y=y)
 
-                graph_list.append(graph)
-
-                torch.save(graph, os.path.join(self.processed_dir, 'data_' + str(file_number) + '.pt'))
+                data_list.append(graph)
 
             pbar.update(1)
 
-    def len(self):
-        return len(self.processed_file_names)
-    
-    def get(self, idx):
-        data = torch.load(os.path.join(self.processed_dir, 'data_' + str(idx) + '.pt'))
-        return data
+        if self.pre_filter is not None:
+            data_list = [data for data in data_list if self.pre_filter(data)]
 
-        
+        if self.pre_transform is not None:
+            data_list = [self.pre_transform(data) for data in data_list]
 
 
-
-if __name__=='__main__':
-
-    iscx_root = r'D:\SH\TrafficClassification\vpn-gcn\datasets\data\iscx'
-    iscx_dataset = PCAPDataset(root=iscx_root)
-
-    print(iscx_dataset[5].num_nodes)
-
-
-
-    # vnat_root = r'D:\SH\TrafficClassification\vpn-gcn\datasets\data\vnat'
-    # vnat_dataset = PCAPDataset(root=vnat_root)
-
-
+        data, slices = self.collate(data_list)
+        torch.save((data, slices), self.processed_paths[0])

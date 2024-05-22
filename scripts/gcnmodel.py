@@ -1,37 +1,19 @@
-#Building the GNN
-
+import os
+import torch
+from torch.nn import Linear
+from torch_geometric.nn import GCNConv
+from torch_geometric.nn import global_mean_pool
+from pcapdataset import *
+import math
 from torch.nn import Linear, BatchNorm1d
 import torch.nn.functional as F
 from torch_geometric.loader import DataLoader, ImbalancedSampler
 from torch_geometric.nn import GCNConv, GATConv, TopKPooling, BatchNorm, GraphConv
 from torch_geometric.nn import global_mean_pool as gap, global_max_pool as gmp
-import torch.utils.data as data
-from torchvision import datasets
-from torch.utils.data import WeightedRandomSampler
 
-#Shuffle the dataset
-dataset = dataset.shuffle()
 
-#Split the dataset into train and test
-train_dataset = dataset [:]   #train_dataset split
-test_dataset = dataset [:]    #test_dataset split
-  
-#Review the training versus test data
-print(f'Number of training graphs: {len(train_dataset)}')
-print(f'Number of test graphs: {len(test_dataset)}')
-
-#Define sampler and data loaders
-sampler = ImbalancedSampler(train_dataset)
-train_loader = DataLoader(train_dataset, batch_size=256, sampler=sampler)
-test_loader = DataLoader(test_dataset, batch_size=256, shuffle=True)
-
-#View train and test classes to ensure all classes are represented 
-print(f'Number of training classes: {train_dataset.num_classes}')
-print(f'Number of test classes : {test_dataset.num_classes}')
-
-# Define our GCN class as a pytorch Module
 class GCN(torch.nn.Module):
-    def __init__(self):
+    def __init__(self, dataset):
         super(GCN, self).__init__()
         self.conv1 = GraphConv(dataset.num_features, 128)
         self.pool1 = TopKPooling(128, ratio=0.5)
@@ -94,8 +76,3 @@ class GCN(torch.nn.Module):
         x = F.log_softmax(self.lin3(x), dim=-1)
         
         return x
-    
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = GCN()
-model.cuda()
-print(model)
