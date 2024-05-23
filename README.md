@@ -71,6 +71,7 @@ pip install matplotlib, scapy, tqdm, pandas, numpy
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 pip install torch_geometric
 pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.3.0+cu118.html
+pip install tensorboard
 ```
 
 ## 6. Convert pcapng files to pcap and split sessions
@@ -117,3 +118,12 @@ Generate graphs in "{dataset_path}\processed" directory
 * Run the script train.py
 
 ![Alt text](assets/training.png?raw=true "Training model")
+
+## 10. Launch tensorboard
+* Open new powershell window from VS Code by clicking "+" button
+* Run the following command
+```
+tensorboard --logdir=runs
+```
+![Alt text](assets/tensorboard.png?raw=true "Launch Tensorboard")
+![Alt text](assets/graphs.png?raw=true "Tensorboard Visualization")

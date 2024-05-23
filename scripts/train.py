@@ -12,6 +12,7 @@ from torch_geometric.nn import GCNConv, GATConv, TopKPooling, BatchNorm, GraphCo
 from torch_geometric.nn import global_mean_pool as gap, global_max_pool as gmp
 from pcapdataset import PCAPDataset
 from gcnmodel import GCN
+from torch.utils.tensorboard import SummaryWriter
 
 def train(model):
     model.train()
@@ -23,7 +24,9 @@ def train(model):
          loss.backward()  # Derive gradients.
          optimizer.step()  # Update parameters based on gradients.
          optimizer.zero_grad()  # Clear gradients.
+    return loss
 
+@torch.no_grad()
 def test(loader):
      model.eval()
 
@@ -31,9 +34,10 @@ def test(loader):
      for data in loader:  # Iterate in batches over the training/test dataset.
          data.to(device)
          out = model(data)  
+         loss = criterion(out, data.y)
          pred = out.argmax(dim=1)  # Use the class with highest probability.
          correct += int((pred == data.y.argmax(dim=1)).sum())  # Check against ground-truth labels.
-     return correct / len(loader.dataset)  # Derive ratio of correct predictions.
+     return correct / len(loader.dataset), loss  # Derive ratio of correct predictions.
 
 
 
@@ -42,12 +46,12 @@ if __name__=='__main__':
 
     epochs = 150
     batch_size = 1024
-
     iscx_root = r'D:\SH\TrafficClassification\vpn-gcn\datasets\iscx'
+
+    writer = SummaryWriter()
+
     dataset = PCAPDataset(root=iscx_root)
-
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
     torch.manual_seed(12345)
     dataset = dataset.shuffle()
 
@@ -68,11 +72,13 @@ if __name__=='__main__':
     criterion = torch.nn.CrossEntropyLoss()
 
     for epoch in range(1, epochs+1):
-        train(model)
-        train_acc = test(train_loader)
-        test_acc = test(test_loader)
+        train_loss = train(model)
+        train_acc, _ = test(train_loader)
+        test_acc, test_loss = test(test_loader)
         print(f'Epoch: {epoch:03d}, Train Acc: {train_acc:.4f}, Test Acc: {test_acc:.4f}')
-        # print('Memory Allocated = ' + str(torch.cuda.memory_allocated()/1024/1024/1024))
-        # print('Memory Cached = ' + str(torch.cuda.memory_cached()/1024/1024/1024))
+
+        writer.add_scalars('Loss-Training-Test', {'trainloss':train_loss, 'testloss':test_loss}, epoch)
+        writer.add_scalars('Accuracy-Training-Test', {'trainacc':train_acc, 'testacc':test_acc} , epoch)
 
     torch.save(model.state_dict(), 'model_weights.pth')
+    writer.close()
