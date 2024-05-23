@@ -62,7 +62,7 @@ VNAT_release_1.zip
 ```
 
 ## 5. Create conda environment and install packages
-* Open miniconda and run following commands one-ny-one:
+* Open miniconda and run following commands one-by-one:
 ```
 create conda -n vpn-gcn python=3.11
 conda activate vpn-gcn
