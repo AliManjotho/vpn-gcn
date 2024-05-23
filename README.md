@@ -92,7 +92,7 @@ For each packet, it
   Pads the UDP packets with zeros.
   Convert each packet to byte format (0-255 values), if any packet is less than 1500 it pads with zeros.
   Normalize each byte value into the range of (0.0 - 1.0).
-  Generates CSV file with each row representing a packet.
+  Generates JSON file where each file represents a session graph.
 ```
 
 ## 8. Generate graphs
