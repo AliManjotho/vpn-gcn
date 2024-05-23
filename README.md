@@ -60,10 +60,22 @@ VPN-PCAPS-02.zip
 ```
 VNAT_release_1.zip
 ```
-## 5. Convert pcapng files to pcap and split sessions
+
+## 5. Create conda environment and install packages
+* Open miniconda and run following commands one-ny-one:
+```
+create conda -n vpn-gcn python=3.11
+conda activate vpn-gcn
+pip install matplotlib, scapy, tqdm, pandas, numpy
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+pip install torch_geometric
+pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.3.0+cu118.html
+```
+
+## 6. Convert pcapng files to pcap and split sessions
 * Run the script split_sessions.py
 
-## 6. Process packets
+## 7. Process packets
 * Download splitcap utility
    https://www.netresec.com/?page=SplitCap
 * Place SplitCap.exe file in .\vpn-gcn\PCAP processing\
@@ -80,8 +92,8 @@ For each packet, it
   Generates CSV file with each row representing a packet.
 ```
 
-## 7. Generate graphs
+## 8. Generate graphs
 * Run the script generate_graphs.py
 
-## 8. Train the model
+## 9. Train the model
 * Run the script train.py
