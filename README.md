@@ -73,12 +73,13 @@ pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -
 ```
 
 ## 6. Convert pcapng files to pcap and split sessions
-* Run the script split_sessions.py
-
-## 7. Process packets
 * Download splitcap utility
    https://www.netresec.com/?page=SplitCap
 * Place SplitCap.exe file in .\vpn-gcn\scripts\
+* Run the script split_sessions.py
+
+## 7. Process packets
+
 * Run the script process_data.py
 * This script will perform following tasks:
 ```
