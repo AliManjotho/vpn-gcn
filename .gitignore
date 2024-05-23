@@ -5,5 +5,5 @@
 *.tar
 *.pt
 *.json
-scripts/runs/
+runs/
 datasets/
