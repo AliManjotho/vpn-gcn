@@ -114,3 +114,5 @@ Generate graphs in "{dataset_path}\processed" directory
 
 ## 9. Train the model
 * Run the script train.py
+
+![Alt text](assets/training.png?raw=true "Training model")
