@@ -1,4 +1,5 @@
 # vpn-gcn
+![Alt text](assets/model.png?raw=true "Model")
 
 ## 1. Download and install Wireshark
 * While installing wireshark, CHECK the following option: Install Npcap in WinPcap API-compatible mode
