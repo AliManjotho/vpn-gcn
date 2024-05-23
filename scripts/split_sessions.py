@@ -13,6 +13,12 @@ def pcapng_to_pcap(dataset_path):
     
     count = 0
     for file in files:
+
+        # Remove corrupted files
+        if file.name == 'vpn_hangouts_audio1.pcap' or file.name == 'vpn_hangouts_audio2.pcap':
+            os.remove(file.__str__())
+            continue
+
         old_file = file.resolve().__str__()
         new_file = old_file.replace("pcapng", "pcap")
 
