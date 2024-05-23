@@ -125,5 +125,8 @@ Generate graphs in "{dataset_path}\processed" directory
 ```
 tensorboard --logdir=runs
 ```
+```
+Now CTRL+Click http://localhost:6006/ or copy this address in browser
+```
 ![Alt text](assets/tensorboard.png?raw=true "Launch Tensorboard")
 ![Alt text](assets/graphs.png?raw=true "Tensorboard Visualization")
