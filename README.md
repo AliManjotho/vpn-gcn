@@ -97,6 +97,20 @@ For each packet, it
 
 ## 8. Generate graphs
 * Run the script generate_graphs.py
+* This script will perform following tasks:
+```
+Move all JSON files in to "{dataset_path}\raw" directory
+Generate graphs in "{dataset_path}\processed" directory
+
+-{dataset_path}\raw
+ - 1.json
+ - 2.json
+ ...
+-{dataset_path}\processed
+ - data.pt
+ - pre_filter.pt
+ - pre_transform.pt
+```
 
 ## 9. Train the model
 * Run the script train.py
