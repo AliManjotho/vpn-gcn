@@ -76,6 +76,8 @@ pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -
 * Download splitcap utility
    https://www.netresec.com/?page=SplitCap
 * Place SplitCap.exe file in .\vpn-gcn\scripts\
+* Open project folder in VSCode
+* Select python interpreter as "vpn-gcn"
 * Run the script split_sessions.py
 
 ## 7. Process packets
