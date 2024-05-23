@@ -78,7 +78,7 @@ pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -
 ## 7. Process packets
 * Download splitcap utility
    https://www.netresec.com/?page=SplitCap
-* Place SplitCap.exe file in .\vpn-gcn\PCAP processing\
+* Place SplitCap.exe file in .\vpn-gcn\scripts\
 * Run the script process_data.py
 * This script will perform following tasks:
 ```
